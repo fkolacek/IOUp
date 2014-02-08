@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
- * index.php
+ * IOUpApi.php
  * 
  * Copyright 2014 Frantisek Kolacek <work@kolacek.it>
  * 
@@ -21,17 +21,25 @@
  * 
  */
 
-  require "./inc/IOUpLoader.php";
-  require "./inc/config.php";
+  require "config.php";
+
+  class IOUpApi{
   
-  IOUploader::init();
+    private $config = Array();
+    private $database = NULL;
+    
+    public function __construct(Array $config){
+      $this->config = $config;
+      
+      if(empty($this->config['dbFile']))
+	$this->config['dbFile'] = "ioup.db";
+      
+      $this->database = new IOUpDatabase($this->config['dbFile']);
+    }
+    
+    public function __destruct(){
+      unset($this->database);
+      unset($this->config);
+    }
   
-  try{
-    $api = new IOUpApi($config);
   }
-  catch(IOUpException $e){
-    echo $e->getMessage();
-  }
-  
-  
-  echo "All done";

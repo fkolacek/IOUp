@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
- * index.php
+ * IOUpException.php
  * 
  * Copyright 2014 Frantisek Kolacek <work@kolacek.it>
  * 
@@ -21,17 +21,6 @@
  * 
  */
 
-  require "./inc/IOUpLoader.php";
-  require "./inc/config.php";
-  
-  IOUploader::init();
-  
-  try{
-    $api = new IOUpApi($config);
+  class IOUpException extends Exception{
+
   }
-  catch(IOUpException $e){
-    echo $e->getMessage();
-  }
-  
-  
-  echo "All done";

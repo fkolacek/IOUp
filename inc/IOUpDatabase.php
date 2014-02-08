@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
- * index.php
+ * IOUpDatabase.php
  * 
  * Copyright 2014 Frantisek Kolacek <work@kolacek.it>
  * 
@@ -21,17 +21,29 @@
  * 
  */
 
-  require "./inc/IOUpLoader.php";
-  require "./inc/config.php";
+  class IOUpDatabase{
   
-  IOUploader::init();
-  
-  try{
-    $api = new IOUpApi($config);
+    private $dbHandler;
+
+    public function __construct($fileName){
+    
+      if(!extension_loaded("sqlite3"))
+	throw new IOUpException("There is no SQLite3 support!");
+      
+      //if(!file_exists($fileName))
+	//throw new IOUpException("Database '".$fileName."' does not exist!");
+
+      $this->dbHandler = new SQLite3($fileName);
+      
+    }
+    
+    public function __destruct(){
+      $this->dbHandler->close();
+      unset($this->dbHandler);
+    }
+    
+    public buildFromScratch(){
+      //$this->dbHandler->exec("CREATE TABLE test");
+    }
+
   }
-  catch(IOUpException $e){
-    echo $e->getMessage();
-  }
-  
-  
-  echo "All done";

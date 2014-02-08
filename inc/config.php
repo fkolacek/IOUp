@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
- * index.php
+ * config.php
  * 
  * Copyright 2014 Frantisek Kolacek <work@kolacek.it>
  * 
@@ -21,17 +21,13 @@
  * 
  */
 
-  require "./inc/IOUpLoader.php";
-  require "./inc/config.php";
-  
-  IOUploader::init();
-  
-  try{
-    $api = new IOUpApi($config);
-  }
-  catch(IOUpException $e){
-    echo $e->getMessage();
-  }
-  
-  
-  echo "All done";
+
+  $config = Array(
+    'siteName'	=> "IOUp",
+    
+    
+    'adminUser'	=> "admin",
+    'adminPass'	=> "admin",
+    
+    'dbFile'	=> "ioup.db"
+  );
